@@ -19,6 +19,27 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
+      body: ListView(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(vertical: 15.0),
+                fillColor: Colors.white,
+                filled: true,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide(width: 0.8)
+                ),
+                hintText: "search food",
+                prefixIcon: Icon(Icons.search,size: 30.0,),
+                suffixIcon: IconButton(icon: Icon(Icons.close,size: 30.0,),onPressed: (){},)
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
