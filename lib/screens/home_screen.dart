@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:food_app/widgets/recent_order.dart';
 import '../data/data.dart';
+
 
 class HomePage extends StatelessWidget {
   @override
@@ -37,8 +39,11 @@ class HomePage extends StatelessWidget {
                 suffixIcon: IconButton(icon: Icon(Icons.close,size: 30.0,),onPressed: (){},)
               ),
             ),
-          )
+          ),
+          SizedBox(height: 5,),
+          RecentOrder(),
         ],
+        
       ),
     );
   }
