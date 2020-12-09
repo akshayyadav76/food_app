@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/models/models.dart';
+import 'package:food_app/screens/restaurant_destils.dart';
 import 'package:food_app/widgets/rating_stars.dart';
 import 'package:food_app/widgets/recent_order.dart';
 import '../data/data.dart';
+import 'cart_screen.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -19,7 +21,9 @@ class HomePage extends StatelessWidget {
               "Card (${currentUser.cart.length})",
               style: TextStyle(fontSize: 20.0, color: Colors.white),
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context,MaterialPageRoute(builder: (context)=>CartScreen()));
+            },
           )
         ],
       ),
@@ -55,7 +59,7 @@ class HomePage extends StatelessWidget {
                 fontWeight: FontWeight.w600,letterSpacing: 1.3),
                  ),
               ),
-             _buildRestaurants()
+             _buildRestaurants(context)
             ],
           ),
         ],
@@ -63,45 +67,50 @@ class HomePage extends StatelessWidget {
       ),
     );
   }
- Widget _buildRestaurants(){
+ Widget _buildRestaurants(BuildContext context){
    List<Widget>restaurantList =[];
    restaurants.forEach((index){
      restaurantList.add(
-       Container( 
-         margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 10.0),  
-         decoration: BoxDecoration(
-         color: Colors.blue,
-         border: Border.all(width: 3.0,color: Colors.grey[400]),
-         borderRadius: BorderRadius.circular(15.0)
-         ),
-         child: Row(
-           children: [
-           ClipRRect(
-             borderRadius: BorderRadius.circular(15.0),
-             child: Image(
-               height: 120.0,
-               width: 120.0,
-               image: AssetImage(index.imageUrl),
-               fit: BoxFit.cover,
-             ),
+       GestureDetector(
+         onTap: (){
+           Navigator.push(context,MaterialPageRoute(builder:(context)=>RestaurantDestils(index)));
+         },
+         child: Container( 
+           margin: EdgeInsets.symmetric(horizontal: 20.0,vertical: 10.0),  
+           decoration: BoxDecoration(
+           color: Colors.blue,
+           border: Border.all(width: 3.0,color: Colors.grey[400]),
+           borderRadius: BorderRadius.circular(15.0)
            ),
-           Expanded(
-             child: Container(
-               margin: EdgeInsets.all(12.0),
-               child: Column(
-                 crossAxisAlignment: CrossAxisAlignment.start,
-                 children: [
-                   Text(index.name,style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.w600),),
-                   RatingStars(index.rating),
-                   Text(index.address,style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w500),
-                   overflow: TextOverflow.ellipsis,),
-                   Text("0.2 miles away",style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w500),
-                   overflow: TextOverflow.ellipsis,)
-                 ],
+           child: Row(
+             children: [
+             ClipRRect(
+               borderRadius: BorderRadius.circular(15.0),
+               child: Image(
+                 height: 120.0,
+                 width: 120.0,
+                 image: AssetImage(index.imageUrl),
+                 fit: BoxFit.cover,
                ),
              ),
-           ),
-         ],),
+             Expanded(
+               child: Container(
+                 margin: EdgeInsets.all(12.0),
+                 child: Column(
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                     Text(index.name,style: TextStyle(fontSize: 20.0,fontWeight: FontWeight.w600),),
+                     RatingStars(index.rating),
+                     Text(index.address,style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w500),
+                     overflow: TextOverflow.ellipsis,),
+                     Text("0.2 miles away",style: TextStyle(fontSize: 16.0,fontWeight: FontWeight.w500),
+                     overflow: TextOverflow.ellipsis,)
+                   ],
+                 ),
+               ),
+             ),
+           ],),
+         ),
        ),
      );
    });
